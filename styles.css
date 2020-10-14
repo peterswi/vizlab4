@@ -12,3 +12,26 @@ body{
     background-color: lightgrey;
 
 }
+
+/* line styles */
+.axis path,
+.axis line { 
+	fill: none;
+	stroke: purple;
+	shape-rendering: crispEdges;
+}
+/* labels */
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+.xaxisTitle{
+    font-size: 24px;
+}
+.yaxisTitle{
+    font-size: 24px;
+}
+.graphTitle{
+    font-size: 36px;
+}
