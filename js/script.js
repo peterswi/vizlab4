@@ -45,7 +45,7 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
 
     const popOp =d3.scaleLinear()
         .domain(d3.extent(data, d=>d.Population))
-        .range([0.5,0.3])
+        .range([0.7,0.5])
 
     const fillColor=d3.scaleOrdinal(d3.schemeTableau10)
 
@@ -60,7 +60,7 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
         .style('fill', d=>fillColor(d.Region))
         .style('opacity', d=>popOp(d.Population))
 
-    console.log(d=>fillColor(d.Region))
+    
 
         // Draw the axis
     svg.append("g")
@@ -94,13 +94,30 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
         .style('text-anchor','middle')
         .style('font-weight','bolder')
 
-    
-    
-    const svgLegend = d3.select('.chart').append('svg')
-        .attr("width", 100)
-        .attr("height", 100)
-	    .append("g")
 
-    svgLegend.selectAll('.chart')
-        .data(fillColor(data.Region))
+
+    
+    const regions=[...  new Set(data.map(data=>data.Region))]
+    
+    const svgLegend = svg.append('g')
+        .attr('class','legend')       
+        .attr("height", 100)
+        .attr("width", 100)
+    
+    const size=20
+    
+    svgLegend.selectAll('.legend')
+        .data(regions)
+        .enter()
+        .append('rect')
+            .attr('x',width-200)
+            .attr('y',function(d,i){return height-300 + i*(size+5)})
+            .attr('width', size)
+            .attr('height', size)
+            .style('fill',d=>fillColor(d))
+    
+    svgLegend.append('text')
+        .attr('x',width-175)
+        .attr('y',function(d,i){return height- 285+ i*(size+5)})
+        .text(regions)
 })
