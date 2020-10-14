@@ -12,6 +12,9 @@ body{
     background-color: lightgrey;
 
 }
+div{
+    display: block;
+}
 
 /* line styles */
 .axis path,
@@ -34,4 +37,9 @@ body{
 }
 .graphTitle{
     font-size: 36px;
+}
+
+.tooltip{
+    background-color: darkorchid;
+    color:whitesmoke;
 }

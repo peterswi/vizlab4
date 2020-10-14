@@ -62,7 +62,8 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
 
     
 
-        // Draw the axis
+    //AXIS AND TITLES
+
     svg.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", `translate(0, ${height})`)
@@ -79,6 +80,7 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
         .attr('y', yScale(lifeExpEx[0]+2)+40)
         .text("Income")
         .style('text-anchor','middle')
+        
     svg.append('text')
         .attr('class','yaxisTitle')
         .attr("transform", "rotate(-90)")
@@ -93,7 +95,29 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
         .text("Health and Wealth of Nations")
         .style('text-anchor','middle')
         .style('font-weight','bolder')
+   
+    //TOOL TIPS
+    const Tooltip=d3.selectAll('circle')
+        .on('mouseenter', (event,d)=>{
+            let info=d
+            const pos=d3.pointer(event, window)
+            const f=d3.formatPrefix(",.1",1e6)
+            d3.select('.tooltip')
+                .attr('class','tooltip')
+                .style('display', 'block')
+                .style('position', 'Fixed')
+                .style('left', pos[0]+10+'px')
+                .style('top', pos[1]+10+'px')
+                .style('background-color','purple')
+                .style('border-radius','10px')
+                .html('Country: ' + info.Country + '<br>Region: ' + info.Region + '<br>Population: '+ f(info.Population) + '<br>Income: '+ d3.format("$,.3r")(info.Income) + '<br>Life Expectancy: ' + d3.format('.0f')(info.LifeExpectancy))
 
+        })
+        .on('mouseleave', (event, d)=>{
+            d3.select('.tooltip')
+                .style('display','none')
+        }
+        )
 
 
     // LEGEND
