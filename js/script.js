@@ -96,7 +96,7 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
 
 
 
-    
+    // LEGEND
     const regions=[...  new Set(data.map(data=>data.Region))]
     
     const svgLegend = svg.append('g')
@@ -106,7 +106,7 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
     
     const size=20
     
-    svgLegend.selectAll('.legend')
+    svgLegend.selectAll('.legendBlocks')
         .data(regions)
         .enter()
         .append('rect')
@@ -116,8 +116,11 @@ d3.csv('wealth-health-2014.csv', d3.autoType).then(data=>{
             .attr('height', size)
             .style('fill',d=>fillColor(d))
     
-    svgLegend.append('text')
-        .attr('x',width-175)
-        .attr('y',function(d,i){return height- 285+ i*(size+5)})
-        .text(regions)
+    svgLegend.selectAll('.legendText')
+        .data(regions)
+        .enter()
+        .append('text')
+            .attr('x',width-175)
+            .attr('y',function(d,i){return height- 285+ i*(size+5)})
+            .text(d=>d)
 })
