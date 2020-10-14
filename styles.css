@@ -42,4 +42,5 @@ div{
 .tooltip{
     background-color: darkorchid;
     color:whitesmoke;
+    opacity: 0.75;
 }
